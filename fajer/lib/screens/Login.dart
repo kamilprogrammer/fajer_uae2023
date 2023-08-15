@@ -2,7 +2,6 @@ import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:fajer/providers/auth.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,19 +11,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _formkey = GlobalKey<FormState>();
-  late String _name;
-  late String _password;
-
-  void submit() {
-    Provider.of<Auth>(context, listen: false).login(
-      credientials: {
-        'name': _name,
-        'password': _password,
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +18,6 @@ class _LoginState extends State<Login> {
       home: Scaffold(
         body: SingleChildScrollView(
           child: Form(
-            key: _formkey,
             child: Column(
               children: [
                 Row(
@@ -81,9 +66,6 @@ class _LoginState extends State<Login> {
                   width: MediaQuery.of(context).size.width - 40,
                   child: TextFormField(
                     initialValue: 'كامل عبد الرزاق الرفاعي',
-                    onSaved: (value) {
-                      _name = value.toString();
-                    },
                     keyboardType: TextInputType.name,
                     style: TextStyle(fontFamily: 'A Jannat LT', height: 1),
                     textAlign: TextAlign.right,
@@ -99,9 +81,6 @@ class _LoginState extends State<Login> {
                   width: MediaQuery.of(context).size.width - 40,
                   child: TextFormField(
                     initialValue: 'std123',
-                    onSaved: (value) {
-                      _password = value.toString();
-                    },
                     keyboardType: TextInputType.visiblePassword,
                     style: const TextStyle(
                         fontFamily: 'A Jannat LT', height: 1, fontSize: 16),
@@ -140,8 +119,6 @@ class _LoginState extends State<Login> {
                       backgroundColor: const Color.fromARGB(0, 244, 67, 54),
                     ),
                     onPressed: () {
-                      _formkey.currentState!.save();
-                      this.submit();
                       Navigator.push(
                         context,
                         MaterialPageRoute(

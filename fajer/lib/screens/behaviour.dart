@@ -1,10 +1,7 @@
-import 'package:fajer/dio.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/text.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:dio/dio.dart' as Dio;
 
 class Behaviour extends StatefulWidget {
   const Behaviour({super.key});
@@ -14,23 +11,7 @@ class Behaviour extends StatefulWidget {
 }
 
 class _BehaviourState extends State<Behaviour> {
-  Future<List> getBes() async {
-    Dio.Response response = await dio().get('user/bes',
-        options: Dio.Options(
-          headers: {
-            'auth': true,
-          },
-        ));
-    List bes = json.decode(response.toString());
-    return bes.map((Behaviour) => Behaviour.fromJson(Behaviour)).toList();
-  }
-
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,

@@ -1,10 +1,8 @@
-import 'package:fajer/providers/auth.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/text.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Account extends StatefulWidget {
   const Account({super.key});
@@ -75,40 +73,19 @@ class _AccountState extends State<Account> {
                     ),
                   ],
                 ),
-                Consumer<Auth>(
-                  builder: (context, auth, child) {
-                    if (auth.authinticated) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            auth.student.name,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'Rubik',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      );
-                    } else {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            AppText.artext['std_name']!,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'Rubik',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      );
-                    }
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      AppText.artext['std_name']!,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Rubik',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +115,6 @@ class _AccountState extends State<Account> {
                           backgroundColor: const Color.fromARGB(0, 244, 67, 54),
                         ),
                         onPressed: () {
-                          Provider.of<Auth>(context, listen: false).logout();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
