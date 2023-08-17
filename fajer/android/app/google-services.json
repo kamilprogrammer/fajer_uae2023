@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "675234341647",
+    "project_id": "fajer-pro-uae2023",
+    "storage_bucket": "fajer-pro-uae2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675234341647:android:fc9ba196786f469f6e947a",
+        "android_client_info": {
+          "package_name": "com.fajer.fajer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675234341647-m5n422uh74ho0h4fpv458oefmjkqjbkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVWQ_K_uFD9NrAK451wqtXWTk0zX4vrMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675234341647-m5n422uh74ho0h4fpv458oefmjkqjbkp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

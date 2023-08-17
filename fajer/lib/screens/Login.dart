@@ -1,7 +1,8 @@
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/Starter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,6 +12,36 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController name = TextEditingController();
+  TextEditingController password = TextEditingController();
+  static const snackBar = SnackBar(content: Text('كلمة السر خااااااااطئة'));
+
+  Future SinginWithNameandPass(String name, String Password, context) async {
+    try {
+      final creds = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: name, password: Password);
+    } on FirebaseAuthException catch (e) {
+      try {
+        if (e.code == 'email-already-in-use') {
+          FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: name, password: Password);
+        }
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'wrong-password') {
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -119,6 +150,7 @@ class _LoginState extends State<Login> {
                       backgroundColor: const Color.fromARGB(0, 244, 67, 54),
                     ),
                     onPressed: () {
+                      SinginWithNameandPass(name.text, password.text, context);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
