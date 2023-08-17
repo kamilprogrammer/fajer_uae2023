@@ -7,6 +7,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
+    name: 'fajer',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());

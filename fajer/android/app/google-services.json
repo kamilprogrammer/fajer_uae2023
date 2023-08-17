@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "675234341647",
-    "project_id": "fajer-pro-uae2023",
-    "storage_bucket": "fajer-pro-uae2023.appspot.com"
+    "project_number": "973721437157",
+    "project_id": "fajer-uae-2023",
+    "storage_bucket": "fajer-uae-2023.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:675234341647:android:fc9ba196786f469f6e947a",
+        "mobilesdk_app_id": "1:973721437157:android:ef71d92a3d19da1f20250c",
         "android_client_info": {
           "package_name": "com.fajer.fajer"
         }
       },
       "oauth_client": [
         {
-          "client_id": "675234341647-m5n422uh74ho0h4fpv458oefmjkqjbkp.apps.googleusercontent.com",
+          "client_id": "973721437157-8duidppie9b9qpuop1drkni4tchqo075.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAVWQ_K_uFD9NrAK451wqtXWTk0zX4vrMQ"
+          "current_key": "AIzaSyCCGuO_SbghiI7srsuCi-3Cu6s8fjNleqA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "675234341647-m5n422uh74ho0h4fpv458oefmjkqjbkp.apps.googleusercontent.com",
+              "client_id": "973721437157-8duidppie9b9qpuop1drkni4tchqo075.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
