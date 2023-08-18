@@ -1,7 +1,6 @@
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -38,9 +37,8 @@ class _LoginState extends State<Login> {
           await FirebaseAuth.instance
               .signInWithEmailAndPassword(
                   email: name + '@gmail.com', password: password)
-              .then((UserCredential) {
-            var user = UserCredential.user;
-          }).then((value) {
+              .then((UserCredential) {})
+              .then((value) {
             Navigator.push(
               context,
               MaterialPageRoute(

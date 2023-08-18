@@ -1,4 +1,3 @@
-import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/text.dart';
@@ -38,7 +37,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 46, bottom: 16),
+                      margin: const EdgeInsets.only(top: 46, bottom: 16),
                       child: const CircleAvatar(
                         backgroundImage:
                             AssetImage('assets/images/account.png'),

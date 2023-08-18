@@ -1,8 +1,6 @@
 import 'package:fajer/screens/About.dart';
-import 'package:fajer/screens/Account.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/complaint.dart';
-import 'package:fajer/screens/results.dart';
 import 'package:flutter/material.dart';
 
 class Bottom extends StatefulWidget {
