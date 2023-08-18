@@ -2,6 +2,7 @@ import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Account extends StatefulWidget {
@@ -115,12 +116,14 @@ class _AccountState extends State<Account> {
                           backgroundColor: const Color.fromARGB(0, 244, 67, 54),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Starter(),
-                            ),
-                          );
+                          FirebaseAuth.instance.signOut().then((value) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Starter(),
+                              ),
+                            );
+                          });
                         },
                         child: const Text(
                           'تسجيل الخروج',

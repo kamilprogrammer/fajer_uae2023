@@ -76,14 +76,17 @@ class _BehaviourState extends State<Behaviour> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Text(
-                          AppText.artext['s3']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Janna LT',
-                            fontWeight: FontWeight.w700,
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: 50),
+                          child: Text(
+                            AppText.artext['s3']!,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: 'Janna LT',
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],
@@ -135,14 +138,17 @@ class _BehaviourState extends State<Behaviour> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Text(
-                          AppText.artext['s4']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Janna LT',
-                            fontWeight: FontWeight.w700,
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: 50),
+                          child: Text(
+                            AppText.artext['s4']!,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: 'Janna LT',
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],
@@ -194,14 +200,17 @@ class _BehaviourState extends State<Behaviour> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Text(
-                          AppText.artext['s3']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Janna LT',
-                            fontWeight: FontWeight.w700,
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: 50),
+                          child: Text(
+                            AppText.artext['s3']!,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: 'Janna LT',
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],
@@ -244,23 +253,29 @@ class _BehaviourState extends State<Behaviour> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        Text(
-                          '27/9/2023',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Janna LT',
-                            fontWeight: FontWeight.w700,
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: 80),
+                          child: Text(
+                            '27/9/2023',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: 'Janna LT',
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
-                        Text(
-                          AppText.artext['s4']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Janna LT',
-                            fontWeight: FontWeight.w700,
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: 50),
+                          child: Text(
+                            AppText.artext['s4']!,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: 'Janna LT',
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],

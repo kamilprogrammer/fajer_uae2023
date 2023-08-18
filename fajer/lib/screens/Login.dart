@@ -13,36 +13,54 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   late TextEditingController namecontroller =
-      TextEditingController(text: 'kamel@gmail.com');
+      TextEditingController(text: 'kamel');
   late TextEditingController passwordcontroller =
       TextEditingController(text: 'kamIL044');
-  static const snackBar = SnackBar(content: Text('كلمة السر خااااااااطئة'));
+  late var snackBar = const SnackBar(content: Text('كلمة السر خااااااااطئة'));
 
   Future SinginWithNameandPass(String name, String password, context) async {
     try {
       // ignore: unused_local_variable
-      print(name + password);
       final creds = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: name, password: password);
+          .signInWithEmailAndPassword(
+              email: name + '@gmail.com', password: password)
+          .then((value) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Home(),
+          ),
+        );
+      });
     } on FirebaseAuthException catch (e) {
-      try {
-        if (e.code == 'email-already-in-use') {
-          FirebaseAuth.instance
-              .signInWithEmailAndPassword(email: name, password: password);
-        }
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'wrong-password') {
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-      } catch (e) {
-        if (kDebugMode) {
-          print(e);
+      if (e.code == 'email-already-in-use') {
+        try {
+          await FirebaseAuth.instance
+              .signInWithEmailAndPassword(
+                  email: name + '@gmail.com', password: password)
+              .then((UserCredential) {
+            var user = UserCredential.user;
+          }).then((value) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Starter(),
+              ),
+            );
+          });
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'wrong-password') {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(e.toString())));
+          }
+        } catch (e) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(e.toString())));
         }
       }
     } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 

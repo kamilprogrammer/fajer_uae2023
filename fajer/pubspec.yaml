@@ -38,6 +38,7 @@ dependencies:
   font_awesome_flutter: ^10.5.0
   firebase_core: ^2.15.1
   firebase_auth: ^4.7.3
+  url_launcher: ^6.1.12
 
 dev_dependencies:
   flutter_test:

@@ -26,15 +26,8 @@ class _BottomState extends State<Bottom> {
         onTap: (int newindex) {
           setState(() {
             _current = newindex;
+
             if (_current == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Account(),
-                ),
-              );
-            }
-            if (_current == 1) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -42,7 +35,7 @@ class _BottomState extends State<Bottom> {
                 ),
               );
             }
-            if (_current == 2) {
+            if (_current == 1) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -50,15 +43,7 @@ class _BottomState extends State<Bottom> {
                 ),
               );
             }
-            if (_current == 3) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Results(),
-                ),
-              );
-            }
-            if (_current == 4) {
+            if (_current == 2) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -70,20 +55,12 @@ class _BottomState extends State<Bottom> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'الاعدادات',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
             label: 'حول التطبيق',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
             label: 'الرئيسية',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_added_outlined),
-            label: 'نتائج الامتحانات',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.error_outline),
