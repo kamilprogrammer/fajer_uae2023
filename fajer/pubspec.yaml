@@ -39,6 +39,7 @@ dependencies:
   firebase_core: ^2.15.1
   firebase_auth: ^4.7.3
   url_launcher: ^6.1.12
+  cloud_firestore: ^4.8.5
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,7 @@ flutter:
     - assets/images/account.png
     - assets/images/logo.png
     - assets/images/logo.jpg
+    - assets/images/manage.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

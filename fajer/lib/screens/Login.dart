@@ -1,5 +1,9 @@
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/Starter.dart';
+import 'package:fajer/screens/admin.dart';
+import 'package:fajer/screens/behaviour.dart';
+import 'package:fajer/widgets/Errors.dart';
+import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +19,6 @@ class _LoginState extends State<Login> {
       TextEditingController(text: 'kamel');
   late TextEditingController passwordcontroller =
       TextEditingController(text: 'kamIL044');
-  late var snackBar = const SnackBar(content: Text('كلمة السر خااااااااطئة'));
 
   Future SinginWithNameandPass(String name, String password, context) async {
     try {
@@ -24,41 +27,29 @@ class _LoginState extends State<Login> {
           .signInWithEmailAndPassword(
               email: name + '@gmail.com', password: password)
           .then((value) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Home(),
-          ),
-        );
-      });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        try {
-          await FirebaseAuth.instance
-              .signInWithEmailAndPassword(
-                  email: name + '@gmail.com', password: password)
-              .then((UserCredential) {})
-              .then((value) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Starter(),
-              ),
-            );
-          });
-        } on FirebaseAuthException catch (e) {
-          if (e.code == 'wrong-password') {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(e.toString())));
-          }
-        } catch (e) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(e.toString())));
+        if (name == 'kamel') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Admin(),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Home(),
+            ),
+          );
         }
-      }
+      });
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const Error_login();
+        },
+      );
     }
   }
 
@@ -171,6 +162,11 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     SinginWithNameandPass(
                         namecontroller.text, passwordcontroller.text, context);
+                    showDialog(
+                        context: context,
+                        builder: (dialogContex) {
+                          return const Loading();
+                        });
                   },
                   child: const Text(
                     'المتابعة',

@@ -1,5 +1,7 @@
 import 'package:fajer/screens/Home.dart';
+import 'package:fajer/screens/admin.dart';
 import 'package:fajer/widgets/bottombar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,12 +22,22 @@ class _AboutState extends State<About> {
           backgroundColor: const Color(0xFF50D890),
           leading: IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Home(),
-                ),
-              );
+              if (FirebaseAuth.instance.currentUser!.email ==
+                  'kamel@gmail.com') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Admin(),
+                  ),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Home(),
+                  ),
+                );
+              }
             },
             icon: const Icon(
               Icons.arrow_back_ios_new_rounded,

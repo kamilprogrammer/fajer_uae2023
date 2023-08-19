@@ -1,6 +1,8 @@
 import 'package:fajer/screens/About.dart';
 import 'package:fajer/screens/Home.dart';
+import 'package:fajer/screens/admin.dart';
 import 'package:fajer/screens/complaint.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Bottom extends StatefulWidget {
@@ -34,12 +36,22 @@ class _BottomState extends State<Bottom> {
               );
             }
             if (_current == 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Home(),
-                ),
-              );
+              if (FirebaseAuth.instance.currentUser!.email ==
+                  'kamel@gmail.com') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Admin(),
+                  ),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Home(),
+                  ),
+                );
+              }
             }
             if (_current == 2) {
               Navigator.push(
