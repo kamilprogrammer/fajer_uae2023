@@ -89,6 +89,7 @@ class _Show_comsState extends State<Show_coms> {
                         ),
                       ),
                       child: ListTile(
+                        onTap: () {},
                         contentPadding: const EdgeInsets.all(10),
                         title: Text(
                           data['title'],

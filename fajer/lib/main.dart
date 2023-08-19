@@ -29,14 +29,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String? user = FirebaseAuth.instance.currentUser!.email;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (user == 'kamel@gmail.com') {
+          if (FirebaseAuth.instance.currentUser!.email == 'kamel@gmail.com') {
             return Admin();
           } else {
             return Home();

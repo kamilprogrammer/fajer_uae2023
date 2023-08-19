@@ -2,7 +2,9 @@ import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:fajer/screens/admin.dart';
 import 'package:fajer/screens/behaviour.dart';
+import 'package:fajer/widgets/Done.dart';
 import 'package:fajer/widgets/Errors.dart';
+import 'package:fajer/widgets/Send_Done.dart';
 import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,13 +30,33 @@ class _LoginState extends State<Login> {
               email: name + '@gmail.com', password: password)
           .then((value) {
         if (name == 'kamel') {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Admin(),
-            ),
-          );
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                Future.delayed(Duration(seconds: 1), () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Admin(),
+                    ),
+                  );
+                });
+                return const Done();
+              });
         } else {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                Future.delayed(Duration(seconds: 1), () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Admin(),
+                    ),
+                  );
+                });
+                return const Done();
+              });
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -162,11 +184,6 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     SinginWithNameandPass(
                         namecontroller.text, passwordcontroller.text, context);
-                    showDialog(
-                        context: context,
-                        builder: (dialogContex) {
-                          return const Loading();
-                        });
                   },
                   child: const Text(
                     'المتابعة',

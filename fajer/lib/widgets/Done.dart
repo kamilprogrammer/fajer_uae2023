@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Send_Done extends StatefulWidget {
-  const Send_Done({super.key});
+class Done extends StatefulWidget {
+  const Done({super.key});
 
   @override
-  State<Send_Done> createState() => _Send_DoneState();
+  State<Done> createState() => _DoneState();
 }
 
-class _Send_DoneState extends State<Send_Done> {
+class _DoneState extends State<Done> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -20,7 +20,7 @@ class _Send_DoneState extends State<Send_Done> {
           ),
         ),
         child: const Padding(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(0),
           child: Column(
             children: [
               Row(
@@ -37,7 +37,7 @@ class _Send_DoneState extends State<Send_Done> {
                 ],
               ),
               Text(
-                '!' + 'تم الارسال بنجاح',
+                '!' + 'تم الدخول الى الحساب',
                 style: TextStyle(
                     fontFamily: 'Janna Lt',
                     fontSize: 20,

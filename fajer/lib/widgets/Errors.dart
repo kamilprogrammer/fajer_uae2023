@@ -11,8 +11,8 @@ class _Error_loginState extends State<Error_login> {
   late String e;
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Container(
+    return Dialog(
+      child: Container(
         width: MediaQuery.of(context).size.width - 60,
         height: 200,
         decoration: const BoxDecoration(
