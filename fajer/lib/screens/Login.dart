@@ -1,7 +1,6 @@
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:fajer/screens/admin.dart';
-import 'package:fajer/screens/behaviour.dart';
 import 'package:fajer/widgets/Done.dart';
 import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/Send_Done.dart';
@@ -33,7 +32,7 @@ class _LoginState extends State<Login> {
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                Future.delayed(Duration(seconds: 1), () {
+                Future.delayed(const Duration(seconds: 1), () {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

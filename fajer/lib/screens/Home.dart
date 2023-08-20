@@ -1,7 +1,8 @@
+import 'package:fajer/screens/Behaviour_Page.dart';
 import 'package:fajer/screens/Days.dart';
 import 'package:fajer/screens/Starter.dart';
-import 'package:fajer/screens/behaviour.dart';
 import 'package:fajer/screens/results.dart';
+import 'package:fajer/widgets/behaviour.dart';
 import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -169,7 +170,7 @@ class _HomeState extends State<Home> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const Behaviour(),
+                                builder: (context) => Behaviour_Page(),
                               ),
                             );
                           },

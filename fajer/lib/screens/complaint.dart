@@ -1,8 +1,10 @@
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
+import 'package:fajer/widgets/Edit.dart';
 import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/Send_Done.dart';
 import 'package:fajer/widgets/bottombar.dart';
+import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,6 +19,7 @@ class Complaint extends StatefulWidget {
 class _ComplaintState extends State<Complaint> {
   TextEditingController titlecontroller =
       TextEditingController(text: 'السلام عليكم');
+
   TextEditingController bodycontroller = TextEditingController(
       text:
           'السلام عليكم كيف الحال هذا البرنامج شيئ جدا بكل صراحة هههههههه لكن على الاقل افضل من البرنامج السابق الذي كان لا يعمل 😂😂😂');
@@ -34,7 +37,21 @@ class _ComplaintState extends State<Complaint> {
         'user': email,
       },
     ).then((value) {
-      Navigator.of(context).pop(true);
+      if (FirebaseAuth.instance.currentUser!.email == 'kamel@gmail.com') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Admin(),
+          ),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Home(),
+          ),
+        );
+      }
     });
   }
 
@@ -195,6 +212,92 @@ class _ComplaintState extends State<Complaint> {
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              const Text(
+                'بلاغاتك',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Janna LT'),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 60,
+                height: MediaQuery.of(context).size.height,
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('complaints')
+                      .where('user',
+                          isEqualTo: FirebaseAuth.instance.currentUser!.email
+                              .toString())
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Error_login();
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Loading();
+                    }
+                    return ListView(
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map(
+                        (DocumentSnapshot document) {
+                          Map<String, dynamic> data =
+                              document.data()! as Map<String, dynamic>;
+
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(58, 244, 3, 3),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                              ),
+                              child: ListTile(
+                                leading: IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {
+                                    FirebaseFirestore.instance
+                                        .collection('complaints')
+                                        .doc(document.id)
+                                        .delete();
+                                  },
+                                ),
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Edit_com(
+                                          body: data['body'],
+                                          title: data['title'],
+                                          docId: document.id,
+                                        );
+                                      });
+                                },
+                                contentPadding: const EdgeInsets.all(10),
+                                title: Text(
+                                  data['title'],
+                                  textAlign: TextAlign.right,
+                                ),
+                                subtitle: Text(
+                                  data['body'],
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ).toList(),
+                    );
+                  },
+                ),
               ),
             ],
           ),

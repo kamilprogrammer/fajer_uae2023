@@ -1,9 +1,11 @@
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
+import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/bottombar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget {
   const About({super.key});
@@ -13,6 +15,43 @@ class About extends StatefulWidget {
 }
 
 class _AboutState extends State<About> {
+  Future<void> _openFacebook() async {
+    try {
+      launch('https://www.facebook.com/profile.php?id=100063980166039');
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const Error_login();
+          });
+    }
+  }
+
+  Future<void> _openinsta() async {
+    try {
+      launch('https://instagram.com/joudmart');
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const Error_login();
+          });
+    }
+  }
+
+  Future<void> _openwhatsapp() async {
+    try {
+      Uri text = Uri.parse('السلام عليكم');
+      launch('https://wa.me/+971564492448/?text=' + text.toString());
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const Error_login();
+          });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -84,7 +123,9 @@ class _AboutState extends State<About> {
                 children: [
                   Container(
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _openFacebook();
+                      },
                       icon: Icon(Icons.facebook),
                       color: Color.fromARGB(255, 51, 220, 226),
                       iconSize: 34,
@@ -106,7 +147,9 @@ class _AboutState extends State<About> {
                   ),
                   Container(
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _openinsta();
+                      },
                       icon: FaIcon(FontAwesomeIcons.instagram),
                       color: Color.fromARGB(255, 51, 220, 226),
                       iconSize: 30,
@@ -128,7 +171,9 @@ class _AboutState extends State<About> {
                   ),
                   Container(
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _openwhatsapp();
+                      },
                       icon: FaIcon(FontAwesomeIcons.whatsapp),
                       color: Color.fromARGB(255, 51, 220, 226),
                       iconSize: 30,
