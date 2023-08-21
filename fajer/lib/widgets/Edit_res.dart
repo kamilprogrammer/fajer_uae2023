@@ -5,37 +5,37 @@ import 'package:fajer/widgets/Send_Done.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Edit_bes extends StatefulWidget {
+class Edit_res extends StatefulWidget {
   final String subject;
-  final String docId;
-  final String note;
-  final String date;
+  final String subject_mark;
+  final String subject_mark_out;
   final String name;
-  const Edit_bes({
+  final String docId;
+  const Edit_res({
     super.key,
-    required this.subject,
     required this.docId,
-    required this.note,
-    required this.date,
+    required this.subject,
+    required this.subject_mark,
+    required this.subject_mark_out,
     required this.name,
   });
 
   @override
-  State<Edit_bes> createState() => _Edit_besState();
+  State<Edit_res> createState() => _Edit_resState();
 }
 
-class _Edit_besState extends State<Edit_bes> {
-  TextEditingController subjecteditcontroller = TextEditingController();
-  TextEditingController noteeditcontroller = TextEditingController();
-  TextEditingController nameeditcontroller = TextEditingController();
-  TextEditingController dateeditcontroller = TextEditingController();
+class _Edit_resState extends State<Edit_res> {
+  TextEditingController subjectcontroller = TextEditingController();
+  TextEditingController subjectmarkcontroller = TextEditingController();
+  TextEditingController subjectmarkoutcontroller = TextEditingController();
+  TextEditingController usercontroller = TextEditingController();
 
   @override
   void initState() {
-    subjecteditcontroller.text = widget.subject;
-    noteeditcontroller.text = widget.note;
-    dateeditcontroller.text = widget.date;
-    nameeditcontroller.text = widget.name;
+    subjectcontroller.text = widget.subject;
+    subjectmarkcontroller.text = widget.subject_mark;
+    subjectmarkoutcontroller.text = widget.subject_mark_out;
+    usercontroller.text = widget.name;
 
     super.initState();
   }
@@ -86,7 +86,7 @@ class _Edit_besState extends State<Edit_bes> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 120,
                       child: TextField(
-                        controller: subjecteditcontroller,
+                        controller: subjectcontroller,
                         keyboardType: TextInputType.name,
                         style: const TextStyle(
                             fontFamily: 'A Jannat LT', height: 1),
@@ -114,7 +114,7 @@ class _Edit_besState extends State<Edit_bes> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 120,
                       child: TextField(
-                        controller: noteeditcontroller,
+                        controller: subjectmarkcontroller,
                         keyboardType: TextInputType.name,
                         style: const TextStyle(
                             fontFamily: 'A Jannat LT', height: 1),
@@ -127,7 +127,7 @@ class _Edit_besState extends State<Edit_bes> {
                               ),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12))),
-                          hintText: 'الملاحظة',
+                          hintText: 'العلامة المقدرة',
                         ),
                       ),
                     ),
@@ -142,7 +142,7 @@ class _Edit_besState extends State<Edit_bes> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 120,
                       child: TextField(
-                        controller: dateeditcontroller,
+                        controller: subjectmarkoutcontroller,
                         keyboardType: TextInputType.name,
                         style: const TextStyle(
                             fontFamily: 'A Jannat LT', height: 1),
@@ -155,7 +155,7 @@ class _Edit_besState extends State<Edit_bes> {
                               ),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12))),
-                          hintText: 'التاريخ',
+                          hintText: 'العلامة الكاملة',
                         ),
                       ),
                     ),
@@ -170,7 +170,7 @@ class _Edit_besState extends State<Edit_bes> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 120,
                       child: TextField(
-                        controller: nameeditcontroller,
+                        controller: usercontroller,
                         keyboardType: TextInputType.name,
                         style: const TextStyle(
                             fontFamily: 'A Jannat LT', height: 1),
@@ -219,8 +219,11 @@ class _Edit_besState extends State<Edit_bes> {
                         ),
                         //السلام عليكم كيف الحال هذا البرنامج شيئ جدا بكل صراحة هههههههه لكن على الاقل افضل من البرنامج السابق الذي كان لا يعمل 😂😂😂
                         onPressed: () {
-                          Future editbehaviour(String subject, String note,
-                              String name, String date) async {
+                          Future editresults(
+                              String subject,
+                              String subject_mark,
+                              String subject_mark_out,
+                              String name) async {
                             FirebaseFirestore firestore =
                                 FirebaseFirestore.instance;
 
@@ -229,15 +232,15 @@ class _Edit_besState extends State<Edit_bes> {
                                 FirebaseAuth.instance.currentUser!.email;
 
                             await firestore
-                                .collection('behaviours')
+                                .collection('results')
                                 .doc(widget.docId)
                                 .update(
                               {
                                 'subject': subject,
-                                'note': note,
+                                'subject_mark': subject_mark,
+                                'subject_mark_out': subject_mark_out,
                                 'name': name,
                                 'user': name + '@gmail.com',
-                                'Time': date,
                               },
                             ).then((value) {
                               if (FirebaseAuth.instance.currentUser!.email ==
@@ -259,12 +262,12 @@ class _Edit_besState extends State<Edit_bes> {
                             });
                           }
 
-                          if (subjecteditcontroller.text.isNotEmpty) {
-                            editbehaviour(
-                                    subjecteditcontroller.text,
-                                    noteeditcontroller.text,
-                                    nameeditcontroller.text,
-                                    dateeditcontroller.text)
+                          if (subjectcontroller.text.isNotEmpty) {
+                            editresults(
+                                    subjectcontroller.text,
+                                    subjectmarkcontroller.text,
+                                    subjectmarkoutcontroller.text,
+                                    usercontroller.text)
                                 .then((value) {
                               showDialog(
                                   context: context,

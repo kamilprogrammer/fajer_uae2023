@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fajer/screens/Edit_res.dart';
+import 'package:fajer/widgets/Edit_res.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
-import 'package:fajer/widgets/Edit.dart';
-import 'package:fajer/widgets/Edit_behaviours.dart';
 import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/Send_Done.dart';
 import 'package:fajer/widgets/admin_bottom.dart';
-import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -376,6 +373,5 @@ class _A_ResState extends State<A_Res> {
         bottomNavigationBar: const Admin_Bottom(),
       ),
     );
-    ;
   }
 }

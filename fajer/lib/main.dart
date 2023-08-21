@@ -1,7 +1,6 @@
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:fajer/screens/admin.dart';
-import 'package:fajer/screens/show_com.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -3,8 +3,6 @@ import 'package:fajer/screens/Starter.dart';
 import 'package:fajer/screens/admin.dart';
 import 'package:fajer/widgets/Done.dart';
 import 'package:fajer/widgets/Errors.dart';
-import 'package:fajer/widgets/Send_Done.dart';
-import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

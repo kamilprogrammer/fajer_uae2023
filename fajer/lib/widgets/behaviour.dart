@@ -1,11 +1,3 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fajer/screens/Home.dart';
-import 'package:fajer/screens/admin.dart';
-import 'package:fajer/widgets/bottombar.dart';
-import 'package:fajer/widgets/text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Behaviour extends StatelessWidget {

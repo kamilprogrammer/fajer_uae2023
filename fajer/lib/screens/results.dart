@@ -4,7 +4,6 @@ import 'package:fajer/screens/admin.dart';
 import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/loading.dart';
-import 'package:fajer/widgets/text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
-import 'package:fajer/widgets/Edit.dart';
 import 'package:fajer/widgets/Edit_behaviours.dart';
 import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/Send_Done.dart';
@@ -352,6 +351,5 @@ class _A_BehaviourState extends State<A_Behaviour> {
         bottomNavigationBar: const Bottom(),
       ),
     );
-    ;
   }
 }

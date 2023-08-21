@@ -3,7 +3,6 @@ import 'package:fajer/screens/Admin_results.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:fajer/screens/show_com.dart';
 import 'package:fajer/widgets/admin_bottom.dart';
-import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
