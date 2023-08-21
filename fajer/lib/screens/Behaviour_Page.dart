@@ -75,6 +75,7 @@ class _Behaviour_PageState extends State<Behaviour_Page> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Loading();
             }
+
             return ListView(
               shrinkWrap: true,
               children: snapshot.data!.docs.map(
@@ -83,7 +84,7 @@ class _Behaviour_PageState extends State<Behaviour_Page> {
                       document.data()! as Map<String, dynamic>;
 
                   return Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.only(right: 20, left: 20),
                     child: Container(
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(
@@ -92,7 +93,7 @@ class _Behaviour_PageState extends State<Behaviour_Page> {
                       ),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width - 60,
-                        height: 100,
+                        height: 150,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -101,19 +102,22 @@ class _Behaviour_PageState extends State<Behaviour_Page> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(
-                                    data['note'],
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'A Jannat LT',
-                                      fontWeight: FontWeight.w400,
+                                  ConstrainedBox(
+                                    constraints: BoxConstraints(maxWidth: 100),
+                                    child: Text(
+                                      data['note'],
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'A Jannat LT',
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
                                   ),
                                   ConstrainedBox(
                                     constraints:
-                                        const BoxConstraints(maxWidth: 70),
+                                        const BoxConstraints(maxWidth: 80),
                                     child: Text(
                                       data['Time'],
                                       style: TextStyle(
@@ -125,7 +129,7 @@ class _Behaviour_PageState extends State<Behaviour_Page> {
                                     ),
                                   ),
                                   ConstrainedBox(
-                                    constraints: BoxConstraints(maxWidth: 50),
+                                    constraints: BoxConstraints(maxWidth: 54),
                                     child: Text(
                                       data['subject'],
                                       textAlign: TextAlign.center,

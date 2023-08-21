@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
+import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/bottombar.dart';
+import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -55,95 +58,104 @@ class _DaysState extends State<Days> {
             ),
           ),
         ),
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 37,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: 200,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('days')
+              .where('user',
+                  isEqualTo: FirebaseAuth.instance.currentUser!.email)
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Error_login();
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Loading();
+            }
+            return ListView(
+              children: snapshot.data!.docs.map(
+                (DocumentSnapshot document) {
+                  Map<String, dynamic> data =
+                      document.data()! as Map<String, dynamic>;
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, top: 10),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              margin: EdgeInsets.all(10),
-                              child: Text(
-                                'غياب مبرر',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'A Jannat LT',
-                                  fontWeight: FontWeight.w400,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 0, right: 8),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.all(10),
+                                      child: Text(
+                                        'غياب مبرر',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontFamily: 'A Jannat LT',
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        data['date'],
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontFamily: 'Janna LT',
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      'يوم ' + data['day'],
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'A Jannat LT',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                            Container(
-                              child: Text(
-                                '27/9/2023',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Janna LT',
-                                  fontWeight: FontWeight.w700,
-                                ),
+                              width: MediaQuery.of(context).size.width - 40,
+                              height: 54,
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                shadows: const [
+                                  BoxShadow(
+                                    color: Color(0x3F000000),
+                                    blurRadius: 10,
+                                    offset: Offset(0, 8),
+                                    spreadRadius: 5,
+                                  )
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      Row(
-                        children: [
-                          const Text(
-                            'يوم الاثنين',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'A Jannat LT',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(10),
-                            width: 16,
-                            height: 16,
-                            decoration: ShapeDecoration(
-                              color: Color(0xFFFF0000),
-                              shape: OvalBorder(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  width: MediaQuery.of(context).size.width - 30,
-                  height: 54,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    shadows: [
-                      BoxShadow(
-                        color: Color(0x3F000000),
-                        blurRadius: 10,
-                        offset: Offset(0, 8),
-                        spreadRadius: 5,
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 22,
-            ),
-          ],
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ).toList(),
+            );
+          },
         ),
         bottomNavigationBar: Bottom(),
       ),

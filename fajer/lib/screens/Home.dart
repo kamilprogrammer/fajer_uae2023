@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fajer/screens/Behaviour_Page.dart';
 import 'package:fajer/screens/Days.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:fajer/screens/results.dart';
+import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/behaviour.dart';
 import 'package:fajer/widgets/bottombar.dart';
+import 'package:fajer/widgets/loading.dart';
 import 'package:fajer/widgets/text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -49,13 +52,14 @@ class _HomeState extends State<Home> {
                         child: Stack(
                           children: [
                             Align(
-                                alignment: Alignment.bottomRight,
+                              alignment: Alignment.bottomRight,
+                              child: CircleAvatar(
+                                radius: 22,
+                                backgroundColor: Colors.white,
                                 child: CircleAvatar(
-                                    radius: 22,
-                                    backgroundColor: Colors.white,
-                                    child: CircleAvatar(
-                                        radius: 18,
-                                        backgroundColor: Colors.green)))
+                                    radius: 18, backgroundColor: Colors.green),
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -65,13 +69,66 @@ class _HomeState extends State<Home> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      AppText.artext['std_name']!,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontFamily: 'Rubik',
-                        fontWeight: FontWeight.w400,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 70,
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .where('user',
+                                isEqualTo: FirebaseAuth
+                                    .instance.currentUser!.email
+                                    .toString())
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const Error_login();
+                                });
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          }
+                          return ListView(
+                            physics: NeverScrollableScrollPhysics(),
+                            children: snapshot.data!.docs.map(
+                              (DocumentSnapshot document) {
+                                Map<String, dynamic> data =
+                                    document.data()! as Map<String, dynamic>;
+
+                                return Column(
+                                  children: [
+                                    Text(
+                                      data['name'],
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontFamily: 'Janna LT',
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                    ),
+                                    Text(
+                                      data['grade_name'] +
+                                          ' (${data['grade']})',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontFamily: 'A Jannat LT',
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ).toList(),
+                          );
+                        },
                       ),
                     ),
                   ],

@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
           .signInWithEmailAndPassword(
               email: name + '@gmail.com', password: password)
           .then((value) {
-        if (name == 'kamel') {
+        if (FirebaseAuth.instance.currentUser!.email == 'kamel@gmail.com') {
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -44,23 +44,18 @@ class _LoginState extends State<Login> {
               });
         } else {
           showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                Future.delayed(Duration(seconds: 1), () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Admin(),
-                    ),
-                  );
-                });
-                return const Done();
+            context: context,
+            builder: (BuildContext context) {
+              Future.delayed(Duration(seconds: 1), () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Home(),
+                  ),
+                );
               });
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Home(),
-            ),
+              return const Done();
+            },
           );
         }
       });

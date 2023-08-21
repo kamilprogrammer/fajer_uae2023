@@ -5,14 +5,14 @@ import 'package:fajer/screens/complaint.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Bottom extends StatefulWidget {
-  const Bottom({super.key});
+class Admin_Bottom extends StatefulWidget {
+  const Admin_Bottom({super.key});
 
   @override
-  State<Bottom> createState() => _BottomState();
+  State<Admin_Bottom> createState() => _Admin_BottomState();
 }
 
-class _BottomState extends State<Bottom> {
+class _Admin_BottomState extends State<Admin_Bottom> {
   int _current = 0;
   @override
   Widget build(BuildContext context) {
@@ -53,14 +53,6 @@ class _BottomState extends State<Bottom> {
                 );
               }
             }
-            if (_current == 2) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Complaint(),
-                ),
-              );
-            }
           });
         },
         items: [
@@ -71,10 +63,6 @@ class _BottomState extends State<Bottom> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
             label: 'الرئيسية',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.error_outline),
-            label: 'تقديم شكوى',
           ),
         ],
       ),

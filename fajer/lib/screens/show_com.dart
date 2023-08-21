@@ -2,12 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
 import 'package:fajer/widgets/Errors.dart';
-import 'package:fajer/widgets/bottombar.dart';
+import 'package:fajer/widgets/admin_bottom.dart';
 import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class Show_coms extends StatefulWidget {
   const Show_coms({super.key});
@@ -17,7 +15,6 @@ class Show_coms extends StatefulWidget {
 }
 
 class _Show_comsState extends State<Show_coms> {
-  ScrollController _controller = new ScrollController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -107,7 +104,7 @@ class _Show_comsState extends State<Show_coms> {
             );
           },
         ),
-        bottomNavigationBar: const Bottom(),
+        bottomNavigationBar: const Admin_Bottom(),
       ),
     );
   }
