@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
-import 'package:fajer/widgets/Edit.dart';
 import 'package:fajer/widgets/Errors.dart';
-import 'package:fajer/widgets/behaviour.dart';
 import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
