@@ -94,7 +94,7 @@ class _ResultsState extends State<Results> {
                       return const Error_login();
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Loading();
+                      return CircularProgressIndicator();
                     }
                     return ListView(
                       physics: NeverScrollableScrollPhysics(),

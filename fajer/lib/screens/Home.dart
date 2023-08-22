@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fajer/screens/Behaviour_Page.dart';
+import 'package:fajer/screens/Courses.dart';
 import 'package:fajer/screens/Days.dart';
 import 'package:fajer/screens/Starter.dart';
 import 'package:fajer/screens/results.dart';
+import 'package:fajer/screens/store.dart';
 import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/bottombar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -487,7 +489,14 @@ class _HomeState extends State<Home> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(30))),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Course(),
+                              ),
+                            );
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -509,7 +518,7 @@ class _HomeState extends State<Home> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'الاعدادات',
+                                    'الكورسات',
                                     style: TextStyle(fontFamily: 'A jannat LT'),
                                   ),
                                   Container(
@@ -569,7 +578,14 @@ class _HomeState extends State<Home> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(30))),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Store(),
+                              ),
+                            );
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -591,21 +607,22 @@ class _HomeState extends State<Home> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   const Text(
-                                    'الاعدادات',
+                                    'المتجر',
                                     style: TextStyle(fontFamily: 'A jannat LT'),
                                   ),
                                   Container(
                                     height: 40,
                                     width: 40,
                                     child: Icon(
-                                      Icons.settings,
+                                      Icons.store,
                                       size: 28,
                                       color: Color(0xFF0077C0),
                                     ),
-                                    margin: EdgeInsets.all(4),
+                                    margin: const EdgeInsets.all(4),
                                     decoration: BoxDecoration(
-                                      color: Color.fromARGB(109, 67, 255, 155),
-                                      borderRadius: BorderRadius.all(
+                                      color: const Color.fromARGB(
+                                          109, 67, 255, 155),
+                                      borderRadius: const BorderRadius.all(
                                         Radius.circular(20),
                                       ),
                                     ),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
 import 'package:fajer/widgets/Edit_behaviours.dart';
+import 'package:fajer/widgets/Edit_progress.dart';
 import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/Send_Done.dart';
 import 'package:fajer/widgets/bottombar.dart';
@@ -9,29 +10,26 @@ import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class A_Behaviour extends StatefulWidget {
-  const A_Behaviour({super.key});
+class A_Progress extends StatefulWidget {
+  const A_Progress({super.key});
 
   @override
-  State<A_Behaviour> createState() => _A_BehaviourState();
+  State<A_Progress> createState() => _A_ProgressState();
 }
 
-class _A_BehaviourState extends State<A_Behaviour> {
-  TextEditingController subjectcontroller = TextEditingController();
-  TextEditingController notecontroller = TextEditingController();
+class _A_ProgressState extends State<A_Progress> {
+  TextEditingController daycontroller = TextEditingController();
   TextEditingController datecontroller = TextEditingController();
   TextEditingController usercontroller = TextEditingController();
 
-  Future addbehaviour(
-      String subject, String note, String date, String user) async {
+  Future addprogress(String day, String date, String user) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    await firestore.collection('behaviours').add(
+    await firestore.collection('days').add(
       {
-        'subject': subject.toString(),
-        'note': note.toString(),
-        'Time': date.toString(),
-        'date': DateTime.now(),
+        'day': day.toString(),
+        'date': date.toString(),
+        'Time': DateTime.now(),
         'name': user,
         'user': user + '@gmail.com'.toString(),
       },
@@ -72,7 +70,7 @@ class _A_BehaviourState extends State<A_Behaviour> {
           ),
           centerTitle: true,
           title: const Text(
-            'سلوك الطالب',
+            'غيابات الطلاب',
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
@@ -91,9 +89,9 @@ class _A_BehaviourState extends State<A_Behaviour> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width - 40,
+                    width: MediaQuery.of(context).size.width - 60,
                     child: TextField(
-                      controller: subjectcontroller,
+                      controller: daycontroller,
                       keyboardType: TextInputType.name,
                       style:
                           const TextStyle(fontFamily: 'A Jannat LT', height: 1),
@@ -106,49 +104,20 @@ class _A_BehaviourState extends State<A_Behaviour> {
                             ),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(12))),
-                        hintText: 'اسم المادة',
+                        hintText: 'اليوم ( الثلاثاء - الاربعاء)',
                       ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width - 40,
-                    child: TextField(
-                      controller: notecontroller,
-                      keyboardType: TextInputType.name,
-                      style:
-                          const TextStyle(fontFamily: 'A Jannat LT', height: 1),
-                      textAlign: TextAlign.right,
-                      maxLines: 12,
-                      decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color(0xFF33DDE2),
-                            ),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(12))),
-                        hintText: 'الملاحظة',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 40,
+                    width: MediaQuery.of(context).size.width - 60,
                     child: TextField(
                       controller: datecontroller,
                       keyboardType: TextInputType.name,
@@ -169,14 +138,14 @@ class _A_BehaviourState extends State<A_Behaviour> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width - 40,
+                    width: MediaQuery.of(context).size.width - 60,
                     child: TextField(
                       controller: usercontroller,
                       keyboardType: TextInputType.name,
@@ -227,13 +196,12 @@ class _A_BehaviourState extends State<A_Behaviour> {
                       ),
                       //السلام عليكم كيف الحال هذا البرنامج شيئ جدا بكل صراحة هههههههه لكن على الاقل افضل من البرنامج السابق الذي كان لا يعمل 😂😂😂
                       onPressed: () {
-                        if (subjectcontroller.text.isNotEmpty) {
-                          addbehaviour(
-                                  subjectcontroller.text,
-                                  notecontroller.text,
-                                  datecontroller.text,
-                                  usercontroller.text)
-                              .then((value) {
+                        if (daycontroller.text.isNotEmpty) {
+                          addprogress(
+                            daycontroller.text,
+                            datecontroller.text,
+                            usercontroller.text,
+                          ).then((value) {
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -273,12 +241,12 @@ class _A_BehaviourState extends State<A_Behaviour> {
                 height: 14,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width - 60,
+                width: MediaQuery.of(context).size.width - 80,
                 height: MediaQuery.of(context).size.height,
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection('behaviours')
-                      .orderBy('date', descending: true)
+                      .collection('days')
+                      .orderBy('Time', descending: true)
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -305,6 +273,32 @@ class _A_BehaviourState extends State<A_Behaviour> {
                                 ),
                               ),
                               child: ListTile(
+                                leading: IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {
+                                    FirebaseFirestore.instance
+                                        .collection('days')
+                                        .doc(document.id)
+                                        .delete();
+                                  },
+                                ),
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Edit_prog(
+                                          day: data['day'],
+                                          date: data['date'],
+                                          name: data['name'],
+                                          docId: document.id,
+                                        );
+                                      });
+                                },
+                                contentPadding: const EdgeInsets.all(10),
+                                title: Text(
+                                  data['day'],
+                                  textAlign: TextAlign.right,
+                                ),
                                 trailing: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -324,35 +318,8 @@ class _A_BehaviourState extends State<A_Behaviour> {
                                     ),
                                   ],
                                 ),
-                                leading: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    FirebaseFirestore.instance
-                                        .collection('behaviours')
-                                        .doc(document.id)
-                                        .delete();
-                                  },
-                                ),
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Edit_bes(
-                                          subject: data['subject'],
-                                          note: data['note'],
-                                          name: data['name'],
-                                          date: data['Time'],
-                                          docId: document.id,
-                                        );
-                                      });
-                                },
-                                contentPadding: const EdgeInsets.all(10),
-                                title: Text(
-                                  data['subject'],
-                                  textAlign: TextAlign.right,
-                                ),
                                 subtitle: Text(
-                                  data['note'].toString(),
+                                  data['date'].toString(),
                                   textAlign: TextAlign.right,
                                 ),
                               ),

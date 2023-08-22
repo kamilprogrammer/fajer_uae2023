@@ -1,41 +1,53 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
-import 'package:fajer/widgets/Edit_behaviours.dart';
+import 'package:fajer/widgets/Edit_courses.dart';
 import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/Send_Done.dart';
-import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class A_Behaviour extends StatefulWidget {
-  const A_Behaviour({super.key});
+class A_Course extends StatefulWidget {
+  const A_Course({super.key});
 
   @override
-  State<A_Behaviour> createState() => _A_BehaviourState();
+  State<A_Course> createState() => _A_CourseState();
 }
 
-class _A_BehaviourState extends State<A_Behaviour> {
-  TextEditingController subjectcontroller = TextEditingController();
-  TextEditingController notecontroller = TextEditingController();
-  TextEditingController datecontroller = TextEditingController();
-  TextEditingController usercontroller = TextEditingController();
+class _A_CourseState extends State<A_Course> {
+  TextEditingController coursecontroller = TextEditingController();
+  TextEditingController urlcontroller = TextEditingController();
 
-  Future addbehaviour(
-      String subject, String note, String date, String user) async {
+  Future addcourse(
+    String course,
+    String url,
+  ) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    await firestore.collection('behaviours').add(
+    await firestore.collection('Courses').add(
       {
-        'subject': subject.toString(),
-        'note': note.toString(),
-        'Time': date.toString(),
+        'course': course.toString(),
+        'url': url.toString(),
         'date': DateTime.now(),
-        'name': user,
-        'user': user + '@gmail.com'.toString(),
       },
-    );
+    ).then((value) {
+      if (FirebaseAuth.instance.currentUser!.email == 'kamel@gmail.com') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Admin(),
+          ),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Home(),
+          ),
+        );
+      }
+    });
   }
 
   @override
@@ -44,7 +56,8 @@ class _A_BehaviourState extends State<A_Behaviour> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xFF50D890),
+          backgroundColor: Color(0xFF50D890),
+          centerTitle: true,
           leading: IconButton(
             onPressed: () {
               if (FirebaseAuth.instance.currentUser!.email ==
@@ -70,9 +83,8 @@ class _A_BehaviourState extends State<A_Behaviour> {
               size: 16.0,
             ),
           ),
-          centerTitle: true,
           title: const Text(
-            'سلوك الطالب',
+            'اضافة كورس',
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
@@ -93,7 +105,7 @@ class _A_BehaviourState extends State<A_Behaviour> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 40,
                     child: TextField(
-                      controller: subjectcontroller,
+                      controller: coursecontroller,
                       keyboardType: TextInputType.name,
                       style:
                           const TextStyle(fontFamily: 'A Jannat LT', height: 1),
@@ -106,7 +118,7 @@ class _A_BehaviourState extends State<A_Behaviour> {
                             ),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(12))),
-                        hintText: 'اسم المادة',
+                        hintText: 'اسم الكورس',
                       ),
                     ),
                   ),
@@ -121,36 +133,7 @@ class _A_BehaviourState extends State<A_Behaviour> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 40,
                     child: TextField(
-                      controller: notecontroller,
-                      keyboardType: TextInputType.name,
-                      style:
-                          const TextStyle(fontFamily: 'A Jannat LT', height: 1),
-                      textAlign: TextAlign.right,
-                      maxLines: 12,
-                      decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color(0xFF33DDE2),
-                            ),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(12))),
-                        hintText: 'الملاحظة',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 40,
-                    child: TextField(
-                      controller: datecontroller,
+                      controller: urlcontroller,
                       keyboardType: TextInputType.name,
                       style:
                           const TextStyle(fontFamily: 'A Jannat LT', height: 1),
@@ -163,35 +146,7 @@ class _A_BehaviourState extends State<A_Behaviour> {
                             ),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(12))),
-                        hintText: 'التاريخ',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 40,
-                    child: TextField(
-                      controller: usercontroller,
-                      keyboardType: TextInputType.name,
-                      style:
-                          const TextStyle(fontFamily: 'A Jannat LT', height: 1),
-                      textAlign: TextAlign.right,
-                      decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color(0xFF33DDE2),
-                            ),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(12))),
-                        hintText: 'اسم الطالب',
+                        hintText: 'الرابط',
                       ),
                     ),
                   ),
@@ -227,13 +182,11 @@ class _A_BehaviourState extends State<A_Behaviour> {
                       ),
                       //السلام عليكم كيف الحال هذا البرنامج شيئ جدا بكل صراحة هههههههه لكن على الاقل افضل من البرنامج السابق الذي كان لا يعمل 😂😂😂
                       onPressed: () {
-                        if (subjectcontroller.text.isNotEmpty) {
-                          addbehaviour(
-                                  subjectcontroller.text,
-                                  notecontroller.text,
-                                  datecontroller.text,
-                                  usercontroller.text)
-                              .then((value) {
+                        if (coursecontroller.text.isNotEmpty) {
+                          addcourse(
+                            coursecontroller.text,
+                            urlcontroller.text,
+                          ).then((value) {
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -273,11 +226,11 @@ class _A_BehaviourState extends State<A_Behaviour> {
                 height: 14,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width - 60,
+                width: MediaQuery.of(context).size.width - 80,
                 height: MediaQuery.of(context).size.height,
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection('behaviours')
+                      .collection('Courses')
                       .orderBy('date', descending: true)
                       .snapshots(),
                   builder: (BuildContext context,
@@ -305,30 +258,11 @@ class _A_BehaviourState extends State<A_Behaviour> {
                                 ),
                               ),
                               child: ListTile(
-                                trailing: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      width: 40,
-                                      height: 40,
-                                      child: CircleAvatar(
-                                        backgroundColor: Colors.brown.shade50,
-                                        backgroundImage: const AssetImage(
-                                            'assets/images/account.png'),
-                                        radius: 80,
-                                      ),
-                                    ),
-                                    Text(
-                                      data['name'],
-                                    ),
-                                  ],
-                                ),
                                 leading: IconButton(
                                   icon: Icon(Icons.delete),
                                   onPressed: () {
                                     FirebaseFirestore.instance
-                                        .collection('behaviours')
+                                        .collection('Courses')
                                         .doc(document.id)
                                         .delete();
                                   },
@@ -337,22 +271,20 @@ class _A_BehaviourState extends State<A_Behaviour> {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return Edit_bes(
-                                          subject: data['subject'],
-                                          note: data['note'],
-                                          name: data['name'],
-                                          date: data['Time'],
+                                        return Edit_courses(
+                                          course: data['course'],
                                           docId: document.id,
+                                          url: data['url'],
                                         );
                                       });
                                 },
                                 contentPadding: const EdgeInsets.all(10),
                                 title: Text(
-                                  data['subject'],
+                                  data['course'],
                                   textAlign: TextAlign.right,
                                 ),
                                 subtitle: Text(
-                                  data['note'].toString(),
+                                  data['url'],
                                   textAlign: TextAlign.right,
                                 ),
                               ),
@@ -367,7 +299,6 @@ class _A_BehaviourState extends State<A_Behaviour> {
             ],
           ),
         ),
-        bottomNavigationBar: const Bottom(),
       ),
     );
   }

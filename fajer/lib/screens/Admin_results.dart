@@ -288,7 +288,7 @@ class _A_ResState extends State<A_Res> {
                 height: 14,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width - 60,
+                width: MediaQuery.of(context).size.width - 80,
                 height: MediaQuery.of(context).size.height,
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
@@ -320,6 +320,25 @@ class _A_ResState extends State<A_Res> {
                                 ),
                               ),
                               child: ListTile(
+                                trailing: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      width: 40,
+                                      height: 40,
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.brown.shade50,
+                                        backgroundImage: const AssetImage(
+                                            'assets/images/account.png'),
+                                        radius: 80,
+                                      ),
+                                    ),
+                                    Text(
+                                      data['name'],
+                                    ),
+                                  ],
+                                ),
                                 leading: IconButton(
                                   icon: Icon(Icons.delete),
                                   onPressed: () {
