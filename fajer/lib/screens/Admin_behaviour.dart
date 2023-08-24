@@ -272,96 +272,98 @@ class _A_BehaviourState extends State<A_Behaviour> {
               const SizedBox(
                 height: 14,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 60,
-                height: MediaQuery.of(context).size.height,
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('behaviours')
-                      .orderBy('date', descending: true)
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return const Error_login();
-                    }
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Loading();
-                    }
-                    return ListView(
-                      shrinkWrap: true,
-                      children: snapshot.data!.docs.map(
-                        (DocumentSnapshot document) {
-                          Map<String, dynamic> data =
-                              document.data()! as Map<String, dynamic>;
+              SingleChildScrollView(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width - 100,
+                  height: MediaQuery.of(context).size.height,
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('behaviours')
+                        .orderBy('date', descending: true)
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return const Error_login();
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Loading();
+                      }
+                      return ListView(
+                        shrinkWrap: true,
+                        children: snapshot.data!.docs.map(
+                          (DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data()! as Map<String, dynamic>;
 
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Color.fromARGB(80, 0, 255, 64),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(12),
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Color.fromARGB(80, 0, 255, 64),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12),
+                                  ),
                                 ),
-                              ),
-                              child: ListTile(
-                                trailing: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      width: 40,
-                                      height: 40,
-                                      child: CircleAvatar(
-                                        backgroundColor: Colors.brown.shade50,
-                                        backgroundImage: const AssetImage(
-                                            'assets/images/account.png'),
-                                        radius: 80,
+                                child: ListTile(
+                                  trailing: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.brown.shade50,
+                                          backgroundImage: const AssetImage(
+                                              'assets/images/account.png'),
+                                          radius: 80,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      data['name'],
-                                    ),
-                                  ],
-                                ),
-                                leading: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    FirebaseFirestore.instance
-                                        .collection('behaviours')
-                                        .doc(document.id)
-                                        .delete();
+                                      Text(
+                                        data['name'],
+                                      ),
+                                    ],
+                                  ),
+                                  leading: IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () {
+                                      FirebaseFirestore.instance
+                                          .collection('behaviours')
+                                          .doc(document.id)
+                                          .delete();
+                                    },
+                                  ),
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Edit_bes(
+                                            subject: data['subject'],
+                                            note: data['note'],
+                                            name: data['name'],
+                                            date: data['Time'],
+                                            docId: document.id,
+                                          );
+                                        });
                                   },
-                                ),
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Edit_bes(
-                                          subject: data['subject'],
-                                          note: data['note'],
-                                          name: data['name'],
-                                          date: data['Time'],
-                                          docId: document.id,
-                                        );
-                                      });
-                                },
-                                contentPadding: const EdgeInsets.all(10),
-                                title: Text(
-                                  data['subject'],
-                                  textAlign: TextAlign.right,
-                                ),
-                                subtitle: Text(
-                                  data['note'].toString(),
-                                  textAlign: TextAlign.right,
+                                  contentPadding: const EdgeInsets.all(10),
+                                  title: Text(
+                                    data['subject'],
+                                    textAlign: TextAlign.right,
+                                  ),
+                                  subtitle: Text(
+                                    data['note'].toString(),
+                                    textAlign: TextAlign.right,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ).toList(),
-                    );
-                  },
+                            );
+                          },
+                        ).toList(),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

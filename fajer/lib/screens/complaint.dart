@@ -189,8 +189,9 @@ class _ComplaintState extends State<Complaint> {
                       onPressed: () {
                         if (bodycontroller.text.isNotEmpty) {
                           addcomplaint(
-                                  titlecontroller.text, bodycontroller.text)
-                              .then((value) {
+                            titlecontroller.text,
+                            bodycontroller.text,
+                          ).then((value) {
                             showDialog(
                                 context: context,
                                 builder: (context) {

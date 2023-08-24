@@ -287,103 +287,105 @@ class _A_ResState extends State<A_Res> {
               const SizedBox(
                 height: 14,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 80,
-                height: MediaQuery.of(context).size.height,
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('results')
-                      .orderBy('date', descending: true)
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return const Error_login();
-                    }
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Loading();
-                    }
-                    return ListView(
-                      shrinkWrap: true,
-                      children: snapshot.data!.docs.map(
-                        (DocumentSnapshot document) {
-                          Map<String, dynamic> data =
-                              document.data()! as Map<String, dynamic>;
+              SingleChildScrollView(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width - 100,
+                  height: MediaQuery.of(context).size.height,
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('results')
+                        .orderBy('date', descending: true)
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return const Error_login();
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Loading();
+                      }
+                      return ListView(
+                        shrinkWrap: true,
+                        children: snapshot.data!.docs.map(
+                          (DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data()! as Map<String, dynamic>;
 
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Color.fromARGB(80, 0, 255, 64),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(12),
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Color.fromARGB(80, 0, 255, 64),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12),
+                                  ),
                                 ),
-                              ),
-                              child: ListTile(
-                                trailing: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      width: 40,
-                                      height: 40,
-                                      child: CircleAvatar(
-                                        backgroundColor: Colors.brown.shade50,
-                                        backgroundImage: const AssetImage(
-                                            'assets/images/account.png'),
-                                        radius: 80,
+                                child: ListTile(
+                                  trailing: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.brown.shade50,
+                                          backgroundImage: const AssetImage(
+                                              'assets/images/account.png'),
+                                          radius: 80,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      data['name'],
-                                    ),
-                                  ],
-                                ),
-                                leading: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    FirebaseFirestore.instance
-                                        .collection('results')
-                                        .doc(document.id)
-                                        .delete();
+                                      Text(
+                                        data['name'],
+                                      ),
+                                    ],
+                                  ),
+                                  leading: IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () {
+                                      FirebaseFirestore.instance
+                                          .collection('results')
+                                          .doc(document.id)
+                                          .delete();
+                                    },
+                                  ),
+                                  onTap: () {
+                                    print(subjectcontroller.text +
+                                        subjectmarkcontroller.text);
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Edit_res(
+                                            subject: data['subject'].toString(),
+                                            docId: document.id,
+                                            subject_mark:
+                                                data['subject_mark'].toString(),
+                                            subject_mark_out:
+                                                data['subject_mark_out']
+                                                    .toString(),
+                                            name: data['name'].toString(),
+                                          );
+                                        });
                                   },
-                                ),
-                                onTap: () {
-                                  print(subjectcontroller.text +
-                                      subjectmarkcontroller.text);
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Edit_res(
-                                          subject: data['subject'].toString(),
-                                          docId: document.id,
-                                          subject_mark:
-                                              data['subject_mark'].toString(),
-                                          subject_mark_out:
-                                              data['subject_mark_out']
-                                                  .toString(),
-                                          name: data['name'].toString(),
-                                        );
-                                      });
-                                },
-                                contentPadding: const EdgeInsets.all(10),
-                                title: Text(
-                                  data['subject'],
-                                  textAlign: TextAlign.right,
-                                ),
-                                subtitle: Text(
-                                  data['subject_mark'].toString() +
-                                      '/' +
-                                      data['subject_mark_out'].toString(),
-                                  textAlign: TextAlign.right,
+                                  contentPadding: const EdgeInsets.all(10),
+                                  title: Text(
+                                    data['subject'],
+                                    textAlign: TextAlign.right,
+                                  ),
+                                  subtitle: Text(
+                                    data['subject_mark'].toString() +
+                                        '/' +
+                                        data['subject_mark_out'].toString(),
+                                    textAlign: TextAlign.right,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ).toList(),
-                    );
-                  },
+                            );
+                          },
+                        ).toList(),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

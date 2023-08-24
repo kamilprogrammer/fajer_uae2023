@@ -6,16 +6,23 @@ import 'package:fajer/widgets/bottombar.dart';
 import 'package:fajer/widgets/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class product extends StatelessWidget {
   final String product_name;
   final String price;
   final String dis_price;
+  final String img;
+  final String docId;
 
-  product(
-      {required this.product_name,
-      required this.price,
-      required this.dis_price});
+  product({
+    required this.product_name,
+    required this.price,
+    required this.dis_price,
+    required this.docId,
+    required this.img,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,135 +30,151 @@ class product extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Padding(
-          padding: EdgeInsets.only(top: 20, left: 10),
-          child: Container(
-            width: 160,
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
+          padding: const EdgeInsets.only(top: 20, left: 10),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Product_screen(
+                      img: img,
+                      dis_price: dis_price,
+                      price: price,
+                      product_name: product_name,
+                      docId: docId),
                 ),
+              );
+            },
+            child: Container(
+              width: 160,
+              decoration: const ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+                shadows: [
+                  BoxShadow(
+                    color: Color(0x3F000000),
+                    blurRadius: 20,
+                    offset: Offset(0, 10),
+                    spreadRadius: 10,
+                  )
+                ],
+                color: Colors.white,
               ),
-              shadows: const [
-                BoxShadow(
-                  color: Color(0x3F000000),
-                  blurRadius: 20,
-                  offset: Offset(0, 10),
-                  spreadRadius: 10,
-                )
-              ],
-              color: Colors.white,
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(40),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(40),
+                          ),
+                        ),
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          decoration: const ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            shadows: const [
+                              BoxShadow(
+                                color: Color(0x3F000000),
+                                blurRadius: 20,
+                                offset: Offset(0, 10),
+                                spreadRadius: 10,
+                              )
+                            ],
+                          ),
+                          child: Image(
+                            fit: BoxFit.fill,
+                            width: 140,
+                            height: 140,
+                            image: NetworkImage(img),
+                          ),
                         ),
                       ),
-                      child: Container(
-                        margin: const EdgeInsets.all(10),
-                        decoration: const ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 160),
+                        child: Text(
+                          product_name,
+                          textAlign: TextAlign.center,
+                          style:
+                              TextStyle(fontFamily: 'Janna LT', fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'SYP',
+                            style: TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              fontFamily: 'A Jannat LT',
+                              fontSize: 10,
                             ),
                           ),
-                          shadows: const [
-                            BoxShadow(
-                              color: Color(0x3F000000),
-                              blurRadius: 20,
-                              offset: Offset(0, 10),
-                              spreadRadius: 10,
-                            )
-                          ],
-                          color: Colors.white,
-                        ),
-                        child: Image(
-                          width: 140,
-                          height: 140,
-                          image: AssetImage('assets/images/manage.png'),
-                        ),
+                          Text(
+                            int.parse(dis_price).toString().replaceAllMapped(
+                                RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                (Match m) => '${m[1]},'),
+                            style: TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              color: Colors.red,
+                              fontFamily: 'Janna LT',
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 160),
-                      child: Text(
-                        product_name,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontFamily: 'Janna LT', fontSize: 18),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'SYP',
+                            style: TextStyle(
+                              fontFamily: 'A Jannat LT',
+                              fontSize: 12,
+                            ),
+                          ),
+                          Text(
+                            int.parse(price).toString().replaceAllMapped(
+                                RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                (Match m) => '${m[1]},'),
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontFamily: 'Janna LT',
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'SYP',
-                          style: TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            fontFamily: 'A Jannat LT',
-                            fontSize: 10,
-                          ),
-                        ),
-                        Text(
-                          int.parse(dis_price).toString().replaceAllMapped(
-                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                              (Match m) => '${m[1]},'),
-                          style: TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            color: Colors.red,
-                            fontFamily: 'Janna LT',
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'SYP',
-                          style: TextStyle(
-                            fontFamily: 'A Jannat LT',
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          int.parse(price).toString().replaceAllMapped(
-                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                              (Match m) => '${m[1]},'),
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontFamily: 'Janna LT',
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -231,7 +254,8 @@ class _StoreState extends State<Store> {
                 height: 400,
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection('store_clothes')
+                      .collection('store')
+                      .where('section', isEqualTo: 'clothes')
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -259,6 +283,8 @@ class _StoreState extends State<Store> {
                                 product_name: data['product_name'],
                                 price: data['price'],
                                 dis_price: data['dis_price'],
+                                docId: document.id,
+                                img: data['img'],
                               ),
                             ),
                           );
@@ -282,7 +308,8 @@ class _StoreState extends State<Store> {
                 height: 400,
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection('store_tools')
+                      .collection('store')
+                      .where('section', isEqualTo: 'tools')
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -310,6 +337,8 @@ class _StoreState extends State<Store> {
                                 product_name: data['product_name'],
                                 price: data['price'],
                                 dis_price: data['dis_price'],
+                                docId: document.id,
+                                img: data['img'],
                               ),
                             ),
                           );
@@ -323,6 +352,227 @@ class _StoreState extends State<Store> {
           ),
         ),
         bottomNavigationBar: const Bottom(),
+      ),
+    );
+  }
+}
+
+class Product_screen extends StatelessWidget {
+  final String product_name;
+  final String price;
+  final String dis_price;
+  final String docId;
+  final String img;
+  Product_screen(
+      {required this.product_name,
+      required this.dis_price,
+      required this.price,
+      required this.docId,
+      required this.img});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xFF50D890),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Store(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.white,
+              size: 16.0,
+            ),
+          ),
+          title: Text(
+            product_name,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: 'Janna LT',
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        product_name,
+                        style: TextStyle(
+                          fontFamily: 'A Jannat LT',
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(40),
+                    ),
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                      ),
+                      shadows: const [
+                        BoxShadow(
+                          color: Color(0x3F000000),
+                          blurRadius: 20,
+                          offset: Offset(0, 10),
+                          spreadRadius: 10,
+                        )
+                      ],
+                    ),
+                    child: Image(
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width - 100,
+                      height: 200,
+                      image: NetworkImage(img),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            Text(
+                              'SYP',
+                              style: TextStyle(
+                                decoration: TextDecoration.lineThrough,
+                                fontFamily: 'A Jannat LT',
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              int.parse(dis_price).toString().replaceAllMapped(
+                                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                  (Match m) => '${m[1]},'),
+                              style: TextStyle(
+                                decoration: TextDecoration.lineThrough,
+                                color: Colors.red,
+                                fontFamily: 'Janna LT',
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        child: Row(
+                          children: [
+                            Text(
+                              'SYP',
+                              style: TextStyle(
+                                fontFamily: 'A Jannat LT',
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              int.parse(price).toString().replaceAllMapped(
+                                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                  (Match m) => '${m[1]},'),
+                              style: TextStyle(
+                                color: Color(0xFF21BB68),
+                                fontFamily: 'Janna LT',
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    try {
+                      String text =
+                          ' السلام عليكم اريد طلب"$product_name" العدد:\n اللون:\n القياس:\n';
+                      print(text);
+                      launch('https://wa.me/971503037657/?text= $text');
+                    } catch (e) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const Error_login();
+                          });
+                    }
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Color(0xFF21BB68),
+                    ),
+                    height: 40,
+                    width: MediaQuery.of(context).size.width - 60,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.whatsapp,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'الطلب عن طريق الواتس',
+                            style: const TextStyle(
+                                fontFamily: 'Janna LT',
+                                fontSize: 16,
+                                color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: Bottom(),
       ),
     );
   }
