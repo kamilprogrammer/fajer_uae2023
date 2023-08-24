@@ -348,6 +348,60 @@ class _StoreState extends State<Store> {
                   },
                 ),
               ),
+              Text(
+                'غير ذلك',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontFamily: 'Janna LT',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 400,
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('store')
+                      .where('section', isEqualTo: 'others')
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Error_login();
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Loading();
+                    }
+
+                    return ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: snapshot.data!.docs.map(
+                        (DocumentSnapshot document) {
+                          Map<String, dynamic> data =
+                              document.data()! as Map<String, dynamic>;
+
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, bottom: 45, top: 10),
+                            child: SizedBox(
+                              height: 200,
+                              width: 200,
+                              child: product(
+                                product_name: data['product_name'],
+                                price: data['price'],
+                                dis_price: data['dis_price'],
+                                docId: document.id,
+                                img: data['img'],
+                              ),
+                            ),
+                          );
+                        },
+                      ).toList(),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
