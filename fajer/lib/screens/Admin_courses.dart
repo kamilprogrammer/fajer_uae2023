@@ -55,6 +55,7 @@ class _A_CourseState extends State<A_Course> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Color(0xFF50D890),
           centerTitle: true,

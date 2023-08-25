@@ -86,24 +86,6 @@ class _Show_comsState extends State<Show_coms> {
                         ),
                       ),
                       child: ListTile(
-                        trailing: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              width: 40,
-                              height: 40,
-                              child: CircleAvatar(
-                                backgroundColor: Colors.brown.shade50,
-                                backgroundImage: const AssetImage(
-                                    'assets/images/account.png'),
-                                radius: 80,
-                              ),
-                            ),
-                            Text(
-                              data['name'],
-                            ),
-                          ],
-                        ),
                         onTap: () {},
                         contentPadding: const EdgeInsets.all(10),
                         title: Text(

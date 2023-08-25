@@ -43,6 +43,7 @@ class _A_BehaviourState extends State<A_Behaviour> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: const Color(0xFF50D890),
           leading: IconButton(
@@ -111,9 +112,6 @@ class _A_BehaviourState extends State<A_Behaviour> {
                     ),
                   ),
                 ],
-              ),
-              const SizedBox(
-                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

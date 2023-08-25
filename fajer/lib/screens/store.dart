@@ -69,37 +69,38 @@ class product extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(40),
-                          ),
-                        ),
-                        child: Container(
-                          margin: const EdgeInsets.all(10),
-                          decoration: const ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              ),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(40),
                             ),
-                            shadows: const [
-                              BoxShadow(
-                                color: Color(0x3F000000),
-                                blurRadius: 20,
-                                offset: Offset(0, 10),
-                                spreadRadius: 10,
-                              )
-                            ],
                           ),
-                          child: Image(
-                            fit: BoxFit.fill,
-                            width: 140,
-                            height: 140,
-                            image: NetworkImage(img),
-                          ),
-                        ),
-                      ),
+                          child: img.toString() == 'none'
+                              ? Container()
+                              : Container(
+                                  margin: const EdgeInsets.all(10),
+                                  decoration: const ShapeDecoration(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(20),
+                                      ),
+                                    ),
+                                    shadows: const [
+                                      BoxShadow(
+                                        color: Color(0x3F000000),
+                                        blurRadius: 20,
+                                        offset: Offset(0, 10),
+                                        spreadRadius: 10,
+                                      )
+                                    ],
+                                  ),
+                                  child: Image(
+                                    fit: BoxFit.fill,
+                                    width: 140,
+                                    height: 140,
+                                    image: NetworkImage(img),
+                                  ),
+                                )),
                     ],
                   ),
                   SizedBox(
@@ -489,30 +490,32 @@ class Product_screen extends StatelessWidget {
                       Radius.circular(40),
                     ),
                   ),
-                  child: Container(
-                    margin: const EdgeInsets.all(10),
-                    decoration: const ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
+                  child: img == 'none'
+                      ? Container()
+                      : Container(
+                          margin: const EdgeInsets.all(10),
+                          decoration: const ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            shadows: const [
+                              BoxShadow(
+                                color: Color(0x3F000000),
+                                blurRadius: 20,
+                                offset: Offset(0, 10),
+                                spreadRadius: 10,
+                              )
+                            ],
+                          ),
+                          child: Image(
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width - 100,
+                            height: 200,
+                            image: NetworkImage(img),
+                          ),
                         ),
-                      ),
-                      shadows: const [
-                        BoxShadow(
-                          color: Color(0x3F000000),
-                          blurRadius: 20,
-                          offset: Offset(0, 10),
-                          spreadRadius: 10,
-                        )
-                      ],
-                    ),
-                    child: Image(
-                      fit: BoxFit.cover,
-                      width: MediaQuery.of(context).size.width - 100,
-                      height: 200,
-                      image: NetworkImage(img),
-                    ),
-                  ),
                 ),
                 SizedBox(
                   height: 20,
