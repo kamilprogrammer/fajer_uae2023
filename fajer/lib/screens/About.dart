@@ -98,6 +98,7 @@ class _AboutState extends State<About> {
             ),
           ),
           body: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
               children: [
                 Row(
@@ -311,6 +312,7 @@ class _AboutState extends State<About> {
             ),
           ),
           body: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
               children: [
                 Row(

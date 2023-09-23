@@ -37,6 +37,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           body: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
               children: [
                 Row(

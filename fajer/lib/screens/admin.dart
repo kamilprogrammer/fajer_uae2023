@@ -37,6 +37,7 @@ class _AdminState extends State<Admin> {
             ),
           ),
           body: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
               children: [
                 Row(

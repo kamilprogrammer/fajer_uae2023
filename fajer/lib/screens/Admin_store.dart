@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
-import 'package:fajer/widgets/Edit_behaviours.dart';
 import 'package:fajer/widgets/Edit_products.dart';
 import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/Send_Done.dart';
@@ -226,6 +225,7 @@ class _A_storeState extends State<A_store> {
         _image = img;
       });
     } on PlatformException catch (e) {
+      print(e);
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -299,6 +299,7 @@ class _A_storeState extends State<A_store> {
           ),
         ),
         body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
             children: [
               const SizedBox(

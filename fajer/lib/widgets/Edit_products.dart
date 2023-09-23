@@ -46,6 +46,7 @@ class _Edit_prosState extends State<Edit_pros> {
   Widget build(BuildContext context) {
     return Dialog(
       child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Container(
           width: MediaQuery.of(context).size.width - 60,
           height: MediaQuery.of(context).size.height - 60,
@@ -265,7 +266,7 @@ class _Edit_prosState extends State<Edit_pros> {
                                     product_namecontroller.text,
                                     pricecontroller.text,
                                     dis_pricecontroller.text,
-                                    sectioncontroller.text)
+                                    DateTime.now().toString())
                                 .then((value) {
                               showDialog(
                                   context: context,

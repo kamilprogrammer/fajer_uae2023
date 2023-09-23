@@ -44,6 +44,7 @@ class _Edit_resState extends State<Edit_res> {
   Widget build(BuildContext context) {
     return Dialog(
       child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Container(
           width: MediaQuery.of(context).size.width - 60,
           height: MediaQuery.of(context).size.height - 60,

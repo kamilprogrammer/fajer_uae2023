@@ -95,6 +95,7 @@ class _A_CourseState extends State<A_Course> {
           ),
         ),
         body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
             children: [
               const SizedBox(
@@ -161,7 +162,7 @@ class _A_CourseState extends State<A_Course> {
                     width: MediaQuery.of(context).size.width - 60,
                     height: 52,
                     decoration: ShapeDecoration(
-                      color: Color.fromARGB(255, 0, 195, 255),
+                      color: const Color.fromARGB(255, 0, 195, 255),
                       shape: RoundedRectangleBorder(
                         side: const BorderSide(
                             width: 0.50,

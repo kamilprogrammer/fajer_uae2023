@@ -99,6 +99,7 @@ class _ComplaintState extends State<Complaint> {
           ),
         ),
         body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
             children: [
               const SizedBox(

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
-import 'package:fajer/widgets/Edit_behaviours.dart';
 import 'package:fajer/widgets/Edit_progress.dart';
 import 'package:fajer/widgets/Errors.dart';
 import 'package:fajer/widgets/Send_Done.dart';
@@ -80,6 +79,7 @@ class _A_ProgressState extends State<A_Progress> {
           ),
         ),
         body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
             children: [
               const SizedBox(
@@ -241,6 +241,8 @@ class _A_ProgressState extends State<A_Progress> {
                 height: 14,
               ),
               SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width - 100,
                   height: MediaQuery.of(context).size.height,

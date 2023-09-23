@@ -236,6 +236,7 @@ class _StoreState extends State<Store> {
           ),
         ),
         body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
             children: [
               SizedBox(
@@ -459,6 +460,7 @@ class Product_screen extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Column(

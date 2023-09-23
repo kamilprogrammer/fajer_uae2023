@@ -20,42 +20,43 @@ class AppText {
   };
 }
 //SingleChildScrollView(
-//          child: StreamBuilder<QuerySnapshot>(
-//              stream: FirebaseFirestore.instance
-//                  .collection('complaints')
-//                  .orderBy('Time', descending: true)
-//                  .snapshots(),
-//              builder: (context, snapshot) {
-//                if (snapshot.hasError) {
-//                  return const Error_login();
-//                }
-//                if (snapshot.connectionState == ConnectionState.waiting) {
-//                  return const Loading();
-//                }
-//                var docs = snapshot.data!.docs;
-//                return ListView.builder(
-//                  controller: _controller,
-//                  physics: const AlwaysScrollableScrollPhysics(),
-//                  shrinkWrap: true,
-//                  scrollDirection: Axis.vertical,
-//                  itemCount: docs.length,
-//                  itemBuilder: (context, index) {
-//                    return ListTile(
-//                      onTap: () {},
-//                      subtitle: Text(
-//                        docs[index]['body'],
-//                        textAlign: TextAlign.right,
-//                      ),
-//                      leading: const Icon(
-//                        Icons.error,
-//                        color: Colors.red,
-//                      ),
-//                      title: Text(
-//                        docs[index]['title'],
-//                        textAlign: TextAlign.right,
-//                      ),
-//                    );
-//                  },
-//                );
-//              }),
+  //      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+////          child: StreamBuilder<QuerySnapshot>(
+////              stream: FirebaseFirestore.instance
+////                  .collection('complaints')
+////                  .orderBy('Time', descending: true)
+////                  .snapshots(),
+////              builder: (context, snapshot) {
+////                if (snapshot.hasError) {
+////                  return const Error_login();
+////                }
+////                if (snapshot.connectionState == ConnectionState.waiting) {
+////                  return const Loading();
+////                }
+////                var docs = snapshot.data!.docs;
+////                return ListView.builder(
+////                  controller: _controller,
+////                  physics: const AlwaysScrollableScrollPhysics(),
+////                  shrinkWrap: true,
+////                  scrollDirection: Axis.vertical,
+////                  itemCount: docs.length,
+////                  itemBuilder: (context, index) {
+////                    return ListTile(
+////                      onTap: () {},
+////                      subtitle: Text(
+////                        docs[index]['body'],
+////                        textAlign: TextAlign.right,
+////                      ),
+////                      leading: const Icon(
+////                        Icons.error,
+////                        color: Colors.red,
+////                      ),
+////                      title: Text(
+////                        docs[index]['title'],
+////                        textAlign: TextAlign.right,
+////                      ),
+////                    );
+////                  },
+////                );
+////              }),
 //        ),

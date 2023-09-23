@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fajer/screens/Behaviour_Page.dart';
 import 'package:fajer/screens/Home.dart';
 import 'package:fajer/screens/admin.dart';
 import 'package:fajer/widgets/Errors.dart';
@@ -72,6 +71,7 @@ class _CourseState extends State<Course> {
           ),
         ),
         body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
             children: [
               SizedBox(

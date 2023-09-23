@@ -98,6 +98,7 @@ class _A_ResState extends State<A_Res> {
           ),
         ),
         body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
             children: [
               const SizedBox(
@@ -288,6 +289,8 @@ class _A_ResState extends State<A_Res> {
                 height: 14,
               ),
               SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width - 100,
                   height: MediaQuery.of(context).size.height,

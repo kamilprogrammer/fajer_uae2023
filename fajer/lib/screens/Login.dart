@@ -73,6 +73,7 @@ class _LoginState extends State<Login> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
             children: [
               Row(
